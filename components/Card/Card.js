@@ -1,23 +1,21 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-export function Card() {
+export function Card({title, color, img = '#'}) {
   return (
-    <View style={styles.card}>
-      {/* <Image style={styles.img} source={require('../../images/volga.jpg')} /> */}
-      <Text style={styles.text}>Пресс</Text>
+    <View style={styles.card} backgroundColor={color || 'lightblue'}>
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     minHeight: 120,
-    backgroundColor: 'lightblue',
     marginTop: 10,
     borderRadius: 10,
   },

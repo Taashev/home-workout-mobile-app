@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
 import {WebView} from 'react-native-webview';
 import remoteConfig from '@react-native-firebase/remote-config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import NetInfo from '@react-native-community/netinfo';
 
-import {Card} from '../Card/Card';
+import {MainScreen} from '../../screens/MainScreen';
+import {BackScreen} from '../../screens/BackScreen';
+import {ChestScreen} from '../../screens/ChestScreen';
+import {ArmsScreen} from '../../screens/ArmsScreen';
+import {PressScreen} from '../../screens/PressScreen';
+import {LegsScreen} from '../../screens/LegsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -59,17 +64,38 @@ export function App() {
         ) : url ? (
           <WebView source={{uri: url}} />
         ) : (
-          <ScrollView>
-            <Text style={styles.title}>Тренеровки</Text>
-            <Text style={styles.subtitle}>ДОМА</Text>
-            <Stack.Navigator>
-              <Stack.Screen name="Home" component={Card} />
-            </Stack.Navigator>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-          </ScrollView>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Main"
+              component={MainScreen}
+              options={{title: 'Главная'}}
+            />
+            <Stack.Screen
+              name="Back"
+              component={BackScreen}
+              options={{title: 'Спина'}}
+            />
+            <Stack.Screen
+              name="Chest"
+              component={ChestScreen}
+              options={{title: 'Грудь'}}
+            />
+            <Stack.Screen
+              name="Arms"
+              component={ArmsScreen}
+              options={{title: 'Руки'}}
+            />
+            <Stack.Screen
+              name="Press"
+              component={PressScreen}
+              options={{title: 'Пресс'}}
+            />
+            <Stack.Screen
+              name="Legs"
+              component={LegsScreen}
+              options={{title: 'Ноги'}}
+            />
+          </Stack.Navigator>
         )}
       </SafeAreaView>
     </NavigationContainer>
@@ -79,27 +105,5 @@ export function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#a4b0be',
-    padding: 10,
-  },
-  title: {
-    color: '#000',
-    textTransform: 'uppercase',
-    fontSize: 30,
-    fontWeight: 700,
-    textAlign: 'center',
-    paddingTop: 10,
-  },
-  subtitle: {
-    marginTop: 5,
-    marginBottom: 20,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: '#ff793f',
-    color: '#fff',
-    textTransform: 'uppercase',
-    fontSize: 30,
-    fontWeight: 700,
-    textAlign: 'center',
   },
 });
