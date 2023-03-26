@@ -1,6 +1,6 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-export function Exercise({title, img, text}) {
+export function Exercise({ title, img, text }) {
   return (
     <View>
       <Text style={styles.title}>{title}</Text>

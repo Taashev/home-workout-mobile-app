@@ -1,13 +1,13 @@
-import {View, FlatList} from 'react-native';
-import {Exercise} from '../components/Exercise/Exercise';
+import { View, FlatList } from 'react-native';
+import { Exercise } from '../components/Exercise/Exercise';
 
-import {data} from '../db/db';
+import { data } from '../db/db';
 
-export function PressScreen({navigation}) {
+export function PressScreen({ navigation }) {
   return (
     <FlatList
       data={data}
-      renderItem={item => {
+      renderItem={(item) => {
         console.log(item);
         return <Exercise title={item.title} img={item.img} />;
       }}

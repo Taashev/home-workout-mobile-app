@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {Card} from '../components/Card/Card';
+import { Card } from '../components/Card/Card';
 
-export function MainScreen({navigation}) {
+export function MainScreen({ navigation }) {
   function onNavigation(point) {
     navigation.navigate(point);
   }

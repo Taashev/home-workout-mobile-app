@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
-import {WebView} from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import remoteConfig from '@react-native-firebase/remote-config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import {MainScreen} from '../../screens/MainScreen';
-import {BackScreen} from '../../screens/BackScreen';
-import {ChestScreen} from '../../screens/ChestScreen';
-import {ArmsScreen} from '../../screens/ArmsScreen';
-import {PressScreen} from '../../screens/PressScreen';
-import {LegsScreen} from '../../screens/LegsScreen';
+import { MainScreen } from '../../screens/MainScreen';
+import { BackScreen } from '../../screens/BackScreen';
+import { ChestScreen } from '../../screens/ChestScreen';
+import { ArmsScreen } from '../../screens/ArmsScreen';
+import { PressScreen } from '../../screens/PressScreen';
+import { LegsScreen } from '../../screens/LegsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,17 +24,17 @@ export function App() {
 
   useEffect(() => {
     AsyncStorage.getItem('url')
-      .then(url => {
+      .then((url) => {
         if (url) {
           NetInfo.fetch()
-            .then(state => {
+            .then((state) => {
               const isConnected = state.isConnected;
               setIsConnected(isConnected);
               if (isConnected) {
                 setUrl(url);
               }
             })
-            .catch(e => console.log(e))
+            .catch((e) => console.log(e))
             .finally(() => setIsLoading(false));
         } else {
           // remoteConfig()
@@ -50,7 +50,7 @@ export function App() {
           //   .finally(() => setIsLoading(false));
         }
       })
-      .catch(e => console.log(e));
+      .catch((e) => console.log(e));
     setIsLoading(false);
   }, []);
 
@@ -62,38 +62,38 @@ export function App() {
         ) : !isConnected ? (
           <Text>No internet connection</Text>
         ) : url ? (
-          <WebView source={{uri: url}} />
+          <WebView source={{ uri: url }} />
         ) : (
           <Stack.Navigator>
             <Stack.Screen
               name="Main"
               component={MainScreen}
-              options={{title: 'Главная'}}
+              options={{ title: 'Главная' }}
             />
             <Stack.Screen
               name="Back"
               component={BackScreen}
-              options={{title: 'Спина'}}
+              options={{ title: 'Спина' }}
             />
             <Stack.Screen
               name="Chest"
               component={ChestScreen}
-              options={{title: 'Грудь'}}
+              options={{ title: 'Грудь' }}
             />
             <Stack.Screen
               name="Arms"
               component={ArmsScreen}
-              options={{title: 'Руки'}}
+              options={{ title: 'Руки' }}
             />
             <Stack.Screen
               name="Press"
               component={PressScreen}
-              options={{title: 'Пресс'}}
+              options={{ title: 'Пресс' }}
             />
             <Stack.Screen
               name="Legs"
               component={LegsScreen}
-              options={{title: 'Ноги'}}
+              options={{ title: 'Ноги' }}
             />
           </Stack.Navigator>
         )}

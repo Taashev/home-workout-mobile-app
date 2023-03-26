@@ -1,7 +1,7 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-export function Card({title, color, img = '#'}) {
+export function Card({ title, color, img = '#' }) {
   return (
     <View style={styles.card} backgroundColor={color || 'lightblue'}>
       <Text style={styles.text}>{title}</Text>
