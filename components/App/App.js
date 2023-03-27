@@ -51,19 +51,20 @@ export function App() {
         }
       })
       .catch((e) => console.log(e));
-    setIsLoading(false);
+
+    setIsLoading(false); //!
   }, []);
 
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        {isLoading ? (
-          <Text>Loading...</Text>
-        ) : !isConnected ? (
-          <Text>No internet connection</Text>
-        ) : url ? (
-          <WebView source={{ uri: url }} />
-        ) : (
+    <SafeAreaView style={styles.container}>
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : !isConnected ? (
+        <Text>No internet connection</Text>
+      ) : url ? (
+        <WebView source={{ uri: url }} />
+      ) : (
+        <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
               name="Main"
@@ -96,9 +97,9 @@ export function App() {
               options={{ title: 'Ноги' }}
             />
           </Stack.Navigator>
-        )}
-      </SafeAreaView>
-    </NavigationContainer>
+        </NavigationContainer>
+      )}
+    </SafeAreaView>
   );
 }
 

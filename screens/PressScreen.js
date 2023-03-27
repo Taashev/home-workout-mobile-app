@@ -1,17 +1,23 @@
-import { View, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { Exercise } from '../components/Exercise/Exercise';
 
 import { data } from '../db/db';
 
-export function PressScreen({ navigation }) {
+export function PressScreen() {
   return (
     <FlatList
-      data={data}
-      renderItem={(item) => {
-        console.log(item);
-        return <Exercise title={item.title} img={item.img} />;
+      data={data.exercises.press}
+      renderItem={({ item, index }) => {
+        return (
+          <Exercise
+            title={`${++index}. ${item.title}`}
+            img={item.img}
+            text={item.text}
+          />
+        );
       }}
-      keyExtractor={(i, index) => index}
+      keyExtractor={(i) => i.id}
+      style={{ backgroundColor: '#fff' }}
     />
   );
 }
