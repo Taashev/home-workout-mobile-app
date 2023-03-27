@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { WebView } from 'react-native-webview';
 import remoteConfig from '@react-native-firebase/remote-config';
@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { isEmulator, getBrand } from 'react-native-device-info';
 
 import { MainScreen } from '../../screens/MainScreen';
 import { BackScreen } from '../../screens/BackScreen';
@@ -19,48 +20,80 @@ const Stack = createNativeStackNavigator();
 
 export function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isConnected, setIsConnected] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
   const [url, setUrl] = useState('');
 
-  useEffect(() => {
-    AsyncStorage.getItem('url')
-      .then((url) => {
-        if (url) {
-          NetInfo.fetch()
-            .then((state) => {
-              const isConnected = state.isConnected;
-              setIsConnected(isConnected);
-              if (isConnected) {
-                setUrl(url);
-              }
-            })
-            .catch((e) => console.log(e))
-            .finally(() => setIsLoading(false));
-        } else {
-          // remoteConfig()
-          //   .setDefaults({url: ''})
-          //   .then(() => remoteConfig().fetch(0))
-          //   .then(() => remoteConfig().fetchAndActivate())
-          //   .then(() => {
-          //     const getUrl = remoteConfig().getString('url');
-          //     AsyncStorage.setItem('url', getUrl);
-          //     setUrl(getUrl);
-          //   })
-          //   .catch(e => console.log(e))
-          //   .finally(() => setIsLoading(false));
-        }
-      })
-      .catch((e) => console.log(e));
+  async function f() {
+    try {
+      const getUrlLocation = await AsyncStorage.getItem('url');
 
-    setIsLoading(false); //!
+      if (getUrlLocation) {
+        const isConnected = (await NetInfo.fetch()).isConnected;
+        setIsConnected(isConnected);
+        isConnected && setUrl(getUrlLocation);
+        setIsLoading(false);
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      await remoteConfig().setDefaults({ url: '' });
+      await remoteConfig().fetch(0);
+      await remoteConfig().fetchAndActivate();
+
+      const getUrl = remoteConfig().getString('url');
+      const emulator = await isEmulator();
+      const brand = getBrand();
+
+      if (getUrl && !emulator && brand !== 'google') {
+        await AsyncStorage.setItem('url', getUrl);
+        setUrl(getUrl);
+      }
+
+      setIsConnected(true);
+    } catch (err) {
+      console.log(err);
+      setIsConnected(false);
+    }
+  }
+
+  useEffect(() => {
+    f().finally(() => setIsLoading(false));
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       {isLoading ? (
-        <Text>Loading...</Text>
+        <View
+          style={{
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Image source={require('../../assets/images/icon.png')} />
+        </View>
       ) : !isConnected ? (
-        <Text>No internet connection</Text>
+        <View
+          style={{
+            height: '100%',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 600,
+              textTransform: 'uppercase',
+            }}
+          >
+            No internet connection
+          </Text>
+        </View>
       ) : url ? (
         <WebView source={{ uri: url }} />
       ) : (

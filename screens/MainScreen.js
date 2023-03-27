@@ -47,7 +47,7 @@ export function MainScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DAD0C4',
+    backgroundColor: '#fff',
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 10,
