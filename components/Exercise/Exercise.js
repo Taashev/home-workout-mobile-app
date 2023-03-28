@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   img: { width: '100%', height: 200, marginBottom: 10 },
   text: {
     paddingLeft: 10,
+    color: '#718093',
     fontSize: 16,
     fontWeight: 500,
     lineHeight: 22,
