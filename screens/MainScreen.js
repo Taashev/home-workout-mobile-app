@@ -22,19 +22,6 @@ export function MainScreen({ navigation }) {
     navigation.navigate(point);
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => true;
-
-      const subscription = BackHandler.addEventListener(
-        'hardwareBackPress',
-        onBackPress
-      );
-
-      return () => subscription.remove();
-    }, [])
-  );
-
   return (
     <View style={styles.container}>
       <ScrollView>
