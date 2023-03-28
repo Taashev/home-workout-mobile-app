@@ -1,17 +1,20 @@
+import { useCallback } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   ScrollView,
   TouchableOpacity,
+  BackHandler,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/core';
 
 import { Card } from '../components/Card/Card';
 
-import chestImgPreview from '../assets/images/chest/chestPreview.webp';
-import armsPreview from '../assets/images/arms/armsPreview.jpg';
-import pressPreview from '../assets/images/press/pressPreview.jpg';
 import backPreview from '../assets/images/back/backPreview.jpg';
+import breastPreview from '../assets/images/breast/breastPreview.webp';
+import handsPreview from '../assets/images/hands/handsPreview.jpg';
+import absPreview from '../assets/images/abs/absPreview.jpg';
 import legsPreview from '../assets/images/legs/legsPreview.jpg';
 
 export function MainScreen({ navigation }) {
@@ -19,25 +22,38 @@ export function MainScreen({ navigation }) {
     navigation.navigate(point);
   }
 
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => true;
+
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress
+      );
+
+      return () => subscription.remove();
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text style={styles.title}>Тренеровки</Text>
-        <Text style={styles.subtitle}>ДОМА</Text>
+        <Text style={styles.title}>Workout</Text>
+        <Text style={styles.subtitle}>Home</Text>
         <TouchableOpacity onPress={() => onNavigation('Back')}>
-          <Card title="Спина" color="#535c68" img={backPreview} />
+          <Card title="Back" color="#535c68" img={backPreview} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => onNavigation('Chest')}>
-          <Card title="Грудь" color="#E48716" img={chestImgPreview} />
+        <TouchableOpacity onPress={() => onNavigation('Breast')}>
+          <Card title="Breast" color="#E48716" img={breastPreview} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => onNavigation('Arms')}>
-          <Card title="Руки" color="#C9D46C" img={armsPreview} />
+        <TouchableOpacity onPress={() => onNavigation('Hands')}>
+          <Card title="Hands" color="#C9D46C" img={handsPreview} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => onNavigation('Press')}>
-          <Card title="Пресс" color="#95afc0" img={pressPreview} />
+        <TouchableOpacity onPress={() => onNavigation('Abs')}>
+          <Card title="Abs" color="#95afc0" img={absPreview} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => onNavigation('Legs')}>
-          <Card title="Ноги" color="#DFBCB2" img={legsPreview} />
+          <Card title="Legs" color="#DFBCB2" img={legsPreview} />
         </TouchableOpacity>
       </ScrollView>
     </View>

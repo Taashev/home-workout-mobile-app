@@ -3,10 +3,10 @@ import { Exercise } from '../components/Exercise/Exercise';
 
 import { data } from '../db/db';
 
-export function ChestScreen() {
+export function AbsScreen() {
   return (
     <FlatList
-      data={data.exercises.сhest}
+      data={data.exercises.abs}
       renderItem={({ item, index }) => {
         return (
           <Exercise

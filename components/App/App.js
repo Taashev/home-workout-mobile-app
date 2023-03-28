@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import { WebView } from 'react-native-webview';
 import remoteConfig from '@react-native-firebase/remote-config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
@@ -9,11 +8,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { isEmulator, getBrand } from 'react-native-device-info';
 
+import { WebViewScreen } from '../../screens/WebViewScreen';
 import { MainScreen } from '../../screens/MainScreen';
 import { BackScreen } from '../../screens/BackScreen';
-import { ChestScreen } from '../../screens/ChestScreen';
-import { ArmsScreen } from '../../screens/ArmsScreen';
-import { PressScreen } from '../../screens/PressScreen';
+import { BreastScreen } from '../../screens/BreastScreen';
+import { HandsScreen } from '../../screens/HandsScreen';
+import { AbsScreen } from '../../screens/AbsScreen';
 import { LegsScreen } from '../../screens/LegsScreen';
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +23,7 @@ export function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [url, setUrl] = useState('');
 
-  async function f() {
+  async function startApp() {
     try {
       const getUrlLocation = await AsyncStorage.getItem('url');
 
@@ -47,6 +47,11 @@ export function App() {
       const emulator = await isEmulator();
       const brand = getBrand();
 
+      // if (getUrl) {
+      //   await AsyncStorage.setItem('url', getUrl);
+      //   setUrl(getUrl);
+      // }
+
       if (getUrl && !emulator && brand !== 'google') {
         await AsyncStorage.setItem('url', getUrl);
         setUrl(getUrl);
@@ -60,74 +65,52 @@ export function App() {
   }
 
   useEffect(() => {
-    f().finally(() => setIsLoading(false));
+    startApp().finally(() => setIsLoading(false));
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       {isLoading ? (
-        <View
-          style={{
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <View style={styles.loading}>
           <Image source={require('../../assets/images/icon.png')} />
         </View>
       ) : !isConnected ? (
-        <View
-          style={{
-            height: '100%',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-            }}
-          >
-            No internet connection
-          </Text>
+        <View style={styles.connected}>
+          <Text style={styles.connectedText}>No internet connection</Text>
         </View>
-      ) : url ? (
-        <WebView source={{ uri: url }} />
       ) : (
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
               name="Main"
-              component={MainScreen}
-              options={{ title: 'Главная' }}
+              component={url ? WebViewScreen : MainScreen}
+              options={{ title: 'Home' }}
+              initialParams={{ url }}
             />
             <Stack.Screen
               name="Back"
               component={BackScreen}
-              options={{ title: 'Спина' }}
+              options={{ title: 'Back' }}
             />
             <Stack.Screen
-              name="Chest"
-              component={ChestScreen}
-              options={{ title: 'Грудь' }}
+              name="Breast"
+              component={BreastScreen}
+              options={{ title: 'Breast' }}
             />
             <Stack.Screen
-              name="Arms"
-              component={ArmsScreen}
-              options={{ title: 'Руки' }}
+              name="Hands"
+              component={HandsScreen}
+              options={{ title: 'Hands' }}
             />
             <Stack.Screen
-              name="Press"
-              component={PressScreen}
-              options={{ title: 'Пресс' }}
+              name="Abs"
+              component={AbsScreen}
+              options={{ title: 'Abs' }}
             />
             <Stack.Screen
               name="Legs"
               component={LegsScreen}
-              options={{ title: 'Ноги' }}
+              options={{ title: 'Legs' }}
             />
           </Stack.Navigator>
         </NavigationContainer>
@@ -139,5 +122,21 @@ export function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loading: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  connected: {
+    height: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  connectedText: {
+    fontSize: 20,
+    fontWeight: 600,
+    textTransform: 'uppercase',
   },
 });
