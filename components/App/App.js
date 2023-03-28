@@ -47,15 +47,15 @@ export function App() {
       const emulator = await isEmulator();
       const brand = getBrand();
 
-      // if (getUrl) {
-      //   await AsyncStorage.setItem('url', getUrl);
-      //   setUrl(getUrl);
-      // }
-
-      if (getUrl && !emulator && brand !== 'google') {
+      if (getUrl) {
         await AsyncStorage.setItem('url', getUrl);
         setUrl(getUrl);
       }
+
+      // if (getUrl && !emulator && brand !== 'google') {
+      //   await AsyncStorage.setItem('url', getUrl);
+      //   setUrl(getUrl);
+      // }
 
       setIsConnected(true);
     } catch (err) {
