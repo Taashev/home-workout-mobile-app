@@ -8,12 +8,12 @@ export function WebViewScreen({ route }) {
 
   const webViewRef = useRef(null);
 
-  const onLoadStart = (syntheticEvent) => {
+  const onLoadStart = useCallback((syntheticEvent) => {
     if (syntheticEvent.nativeEvent.canGoBack && firstLoad) {
       webViewRef.current.clearHistory();
       setFirstLoad(false);
     }
-  };
+  });
 
   const onBackPress = useCallback(() => {
     webViewRef.current.goBack();
