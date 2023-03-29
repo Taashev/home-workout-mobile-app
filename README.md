@@ -118,4 +118,11 @@ Nickname - Home Workout
      	keytool -genkeypair -v -storetype PKCS12 -keystore homeworkout.keystore -alias homeworkout -keyalg RSA -keysize 2048 -validity 10000
      ```
 
-3.
+3. Приложение готов к релизу
+
+В терминале перейти в дерикторию `./android` и ввести команду:
+
+- для aab релиза `./gradlew bundleRelease`
+- для apk релиза `./gradlew assembleRelease`
+
+Готовый релиз приложения находится в директории `./android/app/build/`
