@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1055474749534",
-    "project_id": "homeworkout-67009",
-    "storage_bucket": "homeworkout-67009.appspot.com"
+    "project_number": "703550095872",
+    "project_id": "homeworkout-4045a",
+    "storage_bucket": "homeworkout-4045a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1055474749534:android:198285ca5bf41f00ede4cf",
+        "mobilesdk_app_id": "1:703550095872:android:8d251eb3dbf8362bfd0ee5",
         "android_client_info": {
           "package_name": "com.homeworkout"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1055474749534-or2s11u6al1b71d1juopfi3vn9oe3vht.apps.googleusercontent.com",
+          "client_id": "703550095872-iq1k2d5hnmue1733k6c8dm1j1s0f21i0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBeiQqXDE3UzrHeTRc3zDspwtBZhEUTtVI"
+          "current_key": "AIzaSyApmca5Bl3KCBTdpX5hvuv-lGCg_AiRhU0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1055474749534-or2s11u6al1b71d1juopfi3vn9oe3vht.apps.googleusercontent.com",
+              "client_id": "703550095872-iq1k2d5hnmue1733k6c8dm1j1s0f21i0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
