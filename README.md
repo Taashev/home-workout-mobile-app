@@ -103,7 +103,7 @@ Nickname - Home Workout
 
 1. В терменале перейти в дерикторию `./android/app`
 
-2. Сгенерировать .keystore файл командай
+2. Сгенерировать .keystore файл командой
 
    ```js
    	keytool -genkeypair -v -storetype PKCS12 -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
