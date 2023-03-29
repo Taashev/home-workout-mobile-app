@@ -77,8 +77,6 @@ Nickname - Home Workout
 
 5. Шаг 3 можно пропустить (эти данные уже настроены в приложении)
 
-<img src="./assets/images/readme/firebase-new-app-step3.jpg" width="500" alt="firebase new app step 3" />
-
 6. Регистрация приложения в firebase завершена.
 
 ### Настройка соединения с Firebase:
@@ -86,13 +84,9 @@ Nickname - Home Workout
 7. Скаченый файл google-services.json добавить в проект в директорию `./android/app`. \
    Следующим шагом настроим Remote config.
 
-<img src="./assets/images/readme/add-json.jpg" width="500" alt="add google-services.json project" />
-
 ### Настройка Firebase Remote Config:
 
 8. На сайте Firebase во вкладке "Builld" выбрать пункт "Remote Confgi"
-
-<img src="./assets/images/readme/firebase-remote-config.jpg" width="500" alt="remote config" />
 
 9. Добавить (обновить) переменную "url" с нужным значением которое будет переданно в приложение или оставить поле пустым пустым .\
 
