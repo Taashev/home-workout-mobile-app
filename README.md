@@ -110,15 +110,25 @@ Nickname - Home Workout
    ```
 
    - строку `my-upload-key.keystore` заменить на `имя_проекта.keystore`, в нашем случае `homeworkout.keystore`
-   - строку `my-key-alias` заменить на имя проекта, в нашем случае `homeworkout`
+   - строку `my-key-alias` заменить на имя проекта, в нашем случае `homeworkout_alias`
 
      результат:
 
      ```js
-     	keytool -genkeypair -v -storetype PKCS12 -keystore homeworkout.keystore -alias homeworkout -keyalg RSA -keysize 2048 -validity 10000
+     	keytool -genkeypair -v -storetype PKCS12 -keystore homeworkout.keystore -alias homeworkout_alias -keyalg RSA -keysize 2048 -validity 10000
      ```
 
-3. Приложение готов к релизу
+Заполнить и запомнить поле `password` (например `homeworkout123`). \
+Остальные поля можно рандомные.
+
+3. Идем в директорию `./android`, открываем файл `gradle.properties` и обновляем эти поля на актуальные данные
+
+```
+	MYAPP_UPLOAD_STORE_FILE=homeworkout.keystore
+	MYAPP_UPLOAD_KEY_ALIAS=homeworkout_alias
+	MYAPP_UPLOAD_STORE_PASSWORD=homeworkout123
+	MYAPP_UPLOAD_KEY_PASSWORD=homeworkout123
+```
 
 В терминале перейти в дерикторию `./android` и ввести команду:
 
