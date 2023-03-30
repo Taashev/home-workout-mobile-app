@@ -1,13 +1,12 @@
 import { useCallback } from 'react';
+
 import {
   StyleSheet,
   Text,
   View,
   ScrollView,
   TouchableOpacity,
-  BackHandler,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/core';
 
 import { Card } from '../components/Card/Card';
 
@@ -18,9 +17,9 @@ import absPreview from '../assets/images/abs/absPreview.jpg';
 import legsPreview from '../assets/images/legs/legsPreview.jpg';
 
 export function MainScreen({ navigation }) {
-  function onNavigation(point) {
+  const onNavigation = useCallback((point) => {
     navigation.navigate(point);
-  }
+  });
 
   return (
     <View style={styles.container}>

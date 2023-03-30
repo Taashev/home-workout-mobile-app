@@ -31,7 +31,6 @@ export function App() {
         const isConnected = (await NetInfo.fetch()).isConnected;
         setIsConnected(isConnected);
         isConnected && setUrl(getUrlLocation);
-        setIsLoading(false);
         return;
       }
     } catch (err) {
@@ -79,7 +78,7 @@ export function App() {
             <Stack.Screen
               name="Main"
               component={url ? WebViewScreen : MainScreen}
-              options={{ title: 'Home' }}
+              options={{ title: 'Home', headerShown: false }}
               initialParams={{ url }}
             />
             <Stack.Screen
